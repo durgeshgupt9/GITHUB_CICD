@@ -46,12 +46,12 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v3
 
-      #- name: setup ssh-key
-       # run: |
-         # mkdir -p ~/.ssh
-         # echo "${{secrets.SSH_PEM}}" > ~/.ssh/deploy_key.pem
-          #chmod 600 ~/.ssh/deploy_key.pem
-         # ssh-keyscan -H ${{secrets.SSH_IP}} >> ~/.ssh/known_hosts
+      - name: setup ssh-key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{secrets.SSH_PEM}}" > ~/.ssh/deploy_key.pem
+          chmod 600 ~/.ssh/deploy_key.pem
+          ssh-keyscan -H ${{secrets.SSH_IP}} >> ~/.ssh/known_hosts
 
-     # - name: deploy html by ssh
-     #   run: scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no *.html ${{secrets.SSH_USERNAME}}@${{secrets.SSH_IP}}:/var/www/html/
+      - name: deploy html by ssh
+        run: scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no *.html ${{secrets.SSH_USERNAME}}@${{secrets.SSH_IP}}:/multi_web_jenkins_cicd/html_pages/
